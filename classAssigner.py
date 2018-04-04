@@ -13,14 +13,14 @@ if len(sys.argv)>=5:
     fileRules=sys.argv[3]
     MODE=sys.argv[4]
 else:
-    print("Error; USAGE: python {} <labelFile> <outputFile> <rules>")
+    print("Error; USAGE: python {} <labelFile> <outputFile> <rules> <MODE>")
     sys.exit()
 
 if MODE not in supported_modes:
     print("Error; MODE: {} not supported".format(MODE))
     sys.exit()
 
-if len(sys.argv==4):
+if len(sys.argv)==4:
     DEFAULT_CLASS=sys.argv[5]
 else:
     DEFAULT_CLASS="SINGLETON"
@@ -41,10 +41,10 @@ methods.rules.append([".*", DEFAULT_CLASS])
 with open(fileIn+".json", "r") as fi, open(fileOut+".json", "w") as fo:
     for row in fi:
         jj=json.loads(row)
-        nj=methods.process_input(jj)
+        j=methods.process_input(jj)
         if(MODE==supported_modes[0]):
             count=dict(Counter(j.get("malwareFamilies", "")))
-            order=sorted(dx.items(), key= lambda x: -x[1])
+            order=sorted(count.items(), key= lambda x: -x[1])
             if(len(order)>1):
                 if(order[0][1]==order[1][1]):
                     fo.write("SINGLETON\n")
