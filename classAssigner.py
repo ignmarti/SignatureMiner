@@ -39,9 +39,9 @@ methods.rules.append([".*", DEFAULT_CLASS])
 ## Open output file and write results according to MODE. Signature classification
 ## and single-class classification is performed at once
 with open(fileIn+".json", "r") as fi, open(fileOut+".json", "w") as fo:
-	for row in fi:
-		jj=json.loads(row)
-		nj=methods.process_input(jj)
+    for row in fi:
+        jj=json.loads(row)
+        nj=methods.process_input(jj)
         if(MODE==supported_modes[0]):
             count=dict(Counter(j.get("malwareFamilies", "")))
             order=sorted(dx.items(), key= lambda x: -x[1])
@@ -53,4 +53,4 @@ with open(fileIn+".json", "r") as fi, open(fileOut+".json", "w") as fo:
             else:
                 fo.write(order[0][0]+"\n")
         elif(MODE==supported_modes[1]):
-		  fo.write("{}\n".format(json.dumps(nj)))
+            fo.write("{}\n".format(json.dumps(nj)))
